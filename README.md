@@ -1,3 +1,1 @@
-# ThePolynomialCalculator
-# PolynomialCalculatorDocker
 # PolynomialCalculatorDocker
