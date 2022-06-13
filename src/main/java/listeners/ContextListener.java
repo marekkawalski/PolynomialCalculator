@@ -27,7 +27,6 @@ public class ContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent event) {
 
-
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
         MathEntityJpaController mathEntityJpaController = new MathEntityJpaController(emf);
         MathDateJpaController mathDateJpaController = new MathDateJpaController(emf);

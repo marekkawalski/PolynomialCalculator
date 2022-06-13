@@ -6,7 +6,6 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.annotation.WebServlet;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,10 +13,10 @@ import math.MathDate;
 import math.MathEntity;
 import math.PolynomialException;
 import math.PolynomialMath;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -209,23 +208,7 @@ public class MathServlet extends HttpServlet {
      * @return polynomial equation as String
      */
     private String polynomialOnScreen(List<Integer> argsIntegerTab) {
-        int length = argsIntegerTab.size() - 1;
-        int degree = argsIntegerTab.size() - 2;
-        StringBuilder polynomial;
-        polynomial = new StringBuilder("y(x) = ");
-        for (int i = 0; i < length; i++) {
-            if (degree - i == 1) {
-                polynomial.append(argsIntegerTab.get(i).toString()).append("x");
-            } else if (degree - i == 0) {
-                polynomial.append(argsIntegerTab.get(i).toString());
-            } else {
-                polynomial.append(argsIntegerTab.get(i).toString()).append("x^").append(degree - i);
-            }
-            if (i < length - 1) {
-                polynomial.append(" + ");
-            }
-        }
-        return polynomial.toString();
+        return polynomialString(argsIntegerTab, new StringBuilder("y(x) = "));
     }
 
     /**
@@ -235,22 +218,32 @@ public class MathServlet extends HttpServlet {
      * @return first derivative equation as String
      */
     private String firstDerivativeOnScreen(List<Integer> listOfFactors) {
+        return polynomialString(listOfFactors, new StringBuilder("y'(x) = "));
+    }
+
+    /**
+     * Method responsible for creating polynomial and polynomial first derivative equation (as String)
+     *
+     * @param listOfFactors list of factors for the equation
+     * @param equation      polynomial equation (its beginning for example y'(x)=
+     * @return polynomial equation string (without the beginning)
+     */
+    @NotNull
+    private String polynomialString(List<Integer> listOfFactors, StringBuilder equation) {
         int length = listOfFactors.size() - 1;
         int degree = listOfFactors.size() - 2;
-        StringBuilder firstDerivative;
-        firstDerivative = new StringBuilder("y'(x) = ");
         for (int i = 0; i < length; i++) {
             if (degree - i == 1) {
-                firstDerivative.append(listOfFactors.get(i).toString()).append("x");
+                equation.append(listOfFactors.get(i).toString()).append("x");
             } else if (degree - i == 0) {
-                firstDerivative.append(listOfFactors.get(i).toString());
+                equation.append(listOfFactors.get(i).toString());
             } else {
-                firstDerivative.append(listOfFactors.get(i).toString()).append("x^").append(degree - i);
+                equation.append(listOfFactors.get(i).toString()).append("x^").append(degree - i);
             }
             if (i < length - 1) {
-                firstDerivative.append(" + ");
+                equation.append(" + ");
             }
         }
-        return firstDerivative.toString();
+        return equation.toString();
     }
 }

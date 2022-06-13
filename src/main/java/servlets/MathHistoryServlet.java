@@ -4,12 +4,11 @@ import controllers.MathDateJpaController;
 import controllers.MathEntityJpaController;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.servlet.ServletContext;
-import math.MathEntity;
-
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import math.MathEntity;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -57,7 +56,6 @@ public class MathHistoryServlet extends HttpServlet {
                     + "<head>\n "
                     + "<title>Calculation History</title>"
                     + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./styles.css\" />"
-                    + "<link rel = \"stylesheet\" href = \"fonts/fontawesome-free-5.15.4-web/css/all.min.css\""
                     + "</head>"
                     + "<body>"
                     + "<nav>"
